@@ -1,0 +1,135 @@
+			    Problem Set 3
+
+		 Harvard Extension School CSCI E-93:
+			Computer Architecture
+
+			     Spring 2016
+
+		   Due: March 13, 2016 at Midnight
+
+Total of 200 Points
+
+Please submit your solution to this problem set using "git" with the tag
+ps3-submit.
+
+1. (60 Points) VHDL Counter
+
+Produce VHDL code for either the Altera DE2-70 or DE2-115 Development
+and Education Board using the Altera Quartus II Web Edition Software,
+Version 13.0, Service Pack 1.  Your code will reside in either the
+EP2C70F896C6N (DE2-70) (identified in Quartus as EP2C70F896C6) or
+EP4CE115F29C7 (DE2-115) FPGA device.  Your VHDL code should implement
+an 8-bit counter that resets (to value zero) when pushbutton KEY3
+(KEY[3]) is pressed and counts up by one each time pushbutton KEY2
+(KEY[2]) is pressed.  Note that the pushbuttons are active low (i.e.,
+normally high) and are debounced in hardware.  The value in the
+counter should be displayed in the two leftmost seven-segment LEDs
+(HEX7 (HEX7_D[*]) and HEX6 (HEX6_D[*])) as a hexadecimal number.  Note
+that the LED sements are active low (i.e., the segment is illuminated
+when the corresponding I/O pin is driven low).
+
+For the DE2-70, KEY3 is connected to FPGA pin PIN_U29 and KEY2 is
+connected to FPGA pin PIN_U30.  In the Altera DE2-70 Development and
+Education Board User Guide, Version 1.09 (incorrectly labeled in the
+document as Version 1.08), Figure 5.7 identifies the scheme for naming
+the segments in each display.  In the same document, Table 5.4
+identifies the pin assignments for the seven-segment LEDs.
+
+For the DE2-115, KEY3 is connected to FPGA pin PIN_R24 and KEY2 is
+connected to FPGA pin PIN_N21.  In the Altera DE2-115 User Manual
+(available from the Terasic web site and with copyright dates
+2003-2013), Figure 4-10 identifies the scheme for naming the segments
+in each display.  In the same document, Table 4-4 identifies the pin
+assignments for the seven-segment LEDs.
+
+Your counter should be designed from basic gates -- that is, do not
+simply use VHDL's ability to add one to an integer as a way to build a
+counter.  For example, your counter design might be built from full
+adders which are instantiated as necessary to create an 8-bit counter.
+
+Remember to set "Reserve all unused pins:" to "As input tri-stated"
+under Assignments -> Settings... -> Category: Device -> Device and Pin
+Options... -> Unused Pins every time you create a new project.  Also,
+remember to check all warnings issued by the compiler and also to
+assign appropriate pins that are used in the project.
+
+See Altera Software Installation and Licensing Manual for Windows
+(http://www.altera.com/literature/manual/quartus_install.pdf) for
+information on how to install, configure, and use the Altera software.
+The drivers for connecting the DE2-70 over USB are located in the
+following directories:
+  Windows: <drive>:\altera\<version number>\quartus\drivers
+  Linux: <home directory>/altera <version number>/quartus/drivers
+
+
+2. (25 Points) Katz and Borriello 3.18 (Hazard-Free Design)
+		(5 Points per subpart)
+
+3. (30 Points) Katz and Borriello 5.12 (ALU Design)
+
+4. (15 Points) Katz and Borriello 7.4 (Counter Design)
+		(5 Points per subpart)
+
+5. (10 Points) Katz and Borriello 7.27 (Word Problem)
+
+6. (10 Points) Katz and Borriello 8.2 (State Reduction)
+	    	You should choose a method that will yield some
+		reduction.  Please justify your choice of method.
+
+7. (20 Points) Katz and Borriello 8.7 (State Assignment)
+
+8. (30 Points) Final Program in High-level Language
+
+Write a program in C, C++, or Java to perform the actions described in
+the following description.  Write separate procedures, functions, or
+methods for each of these operations: (1) input a string, (2) convert
+a string to a signed integer numeric value in two's-complement
+representation representing the same value in decimal and checking
+that all characters in the string are digits with a possible preceding
+negative-sign (which is the same character as a dash or hyphen) --
+this function should indicate if the input string cannot be
+successfully be represented as a signed integer numeric value, (3)
+take two signed integer numeric values in two's-complement
+representation (these are named the multiplicand and the multiplier)
+and multiply them by each other to produce a signed integer numeric
+product in two's-complement representation (at your option, the
+product may be either at the same precision as the multiplicand and
+the multiplier or may be in twice the precision of the multiplicand
+and the multiplier) -- it is not necessary to detect overflow, (4)
+convert a signed integer numeric value in two's-complement
+representation to a string representing the same value in decimal
+(note that this value may be negative), and (5) output a string.  The
+minimum precision for all signed integer numeric values must be able
+to represent values from -32768 to 32767, inclusively.  These
+functions are specified to perform the same way that the functions
+required for the final project perform.
+
+None of these functions should use any library methods to perform
+their computation.  That is, do not use built-in calls to perform the
+string-to-value conversions (or vice versa); this conversion should be
+written from scratch.  You are allowed to use library functions for
+input/output operations for characters, but not for either strings or
+for integers (i.e., fputc(c, stream), putc(c, stream), and putchar(c)
+are allowed for output, but fputs(s, stream), puts(s), printf("%s",
+s), and printf("%d", i) are *not* allowed; fgetc(stream),
+getc(stream), and getchar() are allowed for input, but fgets(s, n,
+stream), gets(s), scanf("%s", s), and scanf("%d", &i) are *not*
+allowed).  Also, do not use the multiply operator to perform
+multiplication.  Your algorithm for multiplication should use an
+efficient shifting approach.  None of your code should use a multiply,
+divide, remainder, or modulo operator provided by the programming
+language.
+
+A main program should exist to call these functions so that: (1) a
+prompt is output asking the user to enter a value and that value is
+input as a string, (2) a second prompt is output asking the user to
+enter a second value and that value is input as a string, (3) the
+input strings are converted to integer numeric values and any errors
+are output to the user if the strings do not contain strictly decimal
+digits, (4) the two input values are multiplied by each other to
+produce a product, (5) the product is converted into a string
+representing that decimal value, (6) the product string is output
+preceded by an appropriate string describing the output.
+
+
+			Last revised 25-Jan-16

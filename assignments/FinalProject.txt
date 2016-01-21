@@ -1,0 +1,51 @@
+			    Final Project
+
+		 Harvard Extension School CSCI E-93:
+			Computer Architecture
+
+			     Spring 2016
+
+			 Due: May 10-13, 2016
+
+For the final project, based on your architecture design from Problem
+Set 2 with appropriate modifications made by you based on comments and
+design changes, and using the VHDL code for your ALU, complete the
+following assignment.
+
+Please submit your solution to this problem set using "git" with the
+tag term-project.
+
+
+Produce VHDL code for your entire processor design.  This includes the
+data path, the ALU, the memory interface, and the sequencing logic.
+The final design should be implemented using the Altera DE2-70 or
+DE2-115 system in conjunction with the furnished memory subsystem.
+
+We *will* be holding an elongated class during Final Exam Period (on
+May 10th) that will begin at 6:30 PM ET and will encompass the time of
+both section and class.  During that final class meeting on May 10th,
+each class member will be responsible for presenting their design and
+demonstrating their project.  The presentation should include slides
+to be shown from a computer.  Include a presentation of your block
+diagram, clocking scheme, sequencing logic, interesting design aspects
+of your logic, your instruction set, assembler, emulator, and finally
+a demo of your project running with the memory subsystem.  Show a
+small number of programs running on your hardware that demonstrate the
+capabilities of your hardware (including any novel features you have
+implemented).
+
+Each presentation should be ten minutes in length with an additional
+five minutes for questions.  We will be enforcing this time
+constraint, so plan ahead for a brief presentation.
+
+By 2 PM ET on Friday, May 13th, each class member should submit (as
+assignment number 8) a Final Project report which will include the
+slides used during your presentation, an overview of the processor, an
+up-to-date copy of the processor block diagram, an up-to-date copy of
+your processor's instruction set (i.e., your Principles of Operation
+manual), VHDL code for the complete design, a current copy of the
+source code for your assembler, a current copy of the source code for
+your emulator, and documented sample programs for your processor.
+
+
+			Last revised 25-Jan-16

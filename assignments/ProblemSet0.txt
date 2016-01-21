@@ -1,0 +1,25 @@
+			    Problem Set 0
+
+		 Harvard Extension School CSCI E-93:
+			Computer Architecture
+
+			     Spring 2016
+
+		  Due: January 31, 2016 at Midnight
+
+Total of 20 Points
+
+1. (20 Points) Follow the directions given in the section web site at
+  http://sites.fas.harvard.edu/~cscie287/spring2016/section/index.html
+  to: (1) create a repository on http://code.seas.harvard.edu/ which
+  is a clone of the CSCI E-93 sample code repository, (2) install git
+  on your computers on which you'll be developing code, (3) log into
+  the CSCI E-93 Review Board Server at http://cr.cscie9x.net/, (4)
+  download and install RBTools, (5) complete the course questionnaire,
+  commit your questionnaire, create a tag "questionnaire" (without the
+  double quotes), and push your local repository to the server, (6)
+  post a review on Review Board for ps0-submit (i.e., the course
+  questionnaire).
+
+
+			Last revised 25-Jan-16
