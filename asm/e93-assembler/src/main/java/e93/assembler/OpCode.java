@@ -22,10 +22,11 @@ public enum OpCode {
     }
 
     public static OpCode fromEncoded(int value) {
-        return Arrays.asList(values())
-                .stream()
-                .filter(oc->oc.getValue() == value)
-                .findAny()
-                .orElseThrow((Supplier<RuntimeException>) () -> new IllegalArgumentException("unknown opcode:" + value));
+        for(OpCode oc : values()) {
+           if (oc.getValue() == value) {
+               return oc;
+           }
+        }
+        throw new IllegalArgumentException("unknown opcode:" + value);
     }
 }
