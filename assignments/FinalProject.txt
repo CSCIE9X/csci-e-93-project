@@ -3,9 +3,9 @@
 		 Harvard Extension School CSCI E-93:
 			Computer Architecture
 
-			     Spring 2016
+			      Fall 2017
 
-			 Due: May 10-13, 2016
+		      Due: December 12-15, 2017
 
 For the final project, based on your architecture design from Problem
 Set 2 with appropriate modifications made by you based on comments and
@@ -21,31 +21,48 @@ data path, the ALU, the memory interface, and the sequencing logic.
 The final design should be implemented using the Altera DE2-70 or
 DE2-115 system in conjunction with the furnished memory subsystem.
 
+The culmination of your final project is to run the assembly language
+code that you wrote for your processor in Problem Set 4, Parts 2
+through 9 under your processor on the FPGA.  You are welcome to write,
+run, and demonstrate additional interesting programs running on your
+hardware.
+
 We *will* be holding an elongated class during Final Exam Period (on
-May 10th) that will begin at 6:30 PM ET and will encompass the time of
-both section and class.  During that final class meeting on May 10th,
-each class member will be responsible for presenting their design and
-demonstrating their project.  The presentation should include slides
-to be shown from a computer.  Include a presentation of your block
-diagram, clocking scheme, sequencing logic, interesting design aspects
-of your logic, your instruction set, assembler, emulator, and finally
-a demo of your project running with the memory subsystem.  Show a
-small number of programs running on your hardware that demonstrate the
-capabilities of your hardware (including any novel features you have
-implemented).
+Tuesday night, December 12th) that will begin at 6:30 PM ET and will
+encompass the time of both section and class.  During that final class
+meeting on December 12th, each class member will be responsible for
+presenting their design and demonstrating their project.
 
-Each presentation should be ten minutes in length with an additional
-five minutes for questions.  We will be enforcing this time
-constraint, so plan ahead for a brief presentation.
+Each student will be given fifteen minutes for their presentation.  To
+keep our final presentations on track, you will show a ten minute
+(timing will be enforced) pre-recorded video of a presentation of your
+processor followed by a five minute question and answer session.  We
+will be enforcing this time constraint.  In advance of the class
+meeting, all students should send to the course staff the URL for
+their ten minute pre-recorded presentation.  Included in your
+presentation should be slides that show your block diagram, clocking
+scheme, sequencing logic, interesting design aspects of your logic,
+your instruction set, assembler, emulator, special feature(s), and
+finally a demo of your project running with the memory subsystem.
+Show a small number of programs running on your hardware that
+demonstrate the capabilities of your hardware (including any novel
+features you have implemented).
 
-By 2 PM ET on Friday, May 13th, each class member should submit (as
-assignment number 8) a Final Project report which will include the
-slides used during your presentation, an overview of the processor, an
-up-to-date copy of the processor block diagram, an up-to-date copy of
-your processor's instruction set (i.e., your Principles of Operation
-manual), VHDL code for the complete design, a current copy of the
-source code for your assembler, a current copy of the source code for
-your emulator, and documented sample programs for your processor.
+Local students will participate in the question and answer session in
+person; the Q&A sessions for all distance students will take place
+over a web conferencing application.  Distance students should send
+their web conferencing ID to the course staff in advance of the final
+class meeting.
+
+By 2 PM ET on Friday, December 15th, each class member should submit
+(with git tag term-project) a Final Project report which will include
+the slides used during your presentation, an overview of the
+processor, an up-to-date copy of the processor block diagram, an
+up-to-date copy of your processor's instruction set (i.e., your
+Principles of Operation manual), VHDL code for the complete design, a
+current copy of the source code for your assembler, a current copy of
+the source code for your emulator, and documented sample programs for
+your processor.
 
 
-			Last revised 25-Jan-16
+			Last revised 27-Jul-17

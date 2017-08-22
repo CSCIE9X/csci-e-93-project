@@ -3,9 +3,9 @@
 		 Harvard Extension School CSCI E-93:
 			Computer Architecture
 
-			     Spring 2016
+			      Fall 2017
 
-		   Due: April 17, 2016 at Midnight
+		  Due: November 5, 2017 at Midnight
 
 Total of 50 Points
 
@@ -24,11 +24,14 @@ Produce VHDL code for the ALU (Arithmetic Logic Unit) of your final
 project.  Your ALU should be built from an elementary bit-slice design
 in which your ALU operations are constructed from simple Boolean logic
 gates (e.g., do *not* use the VHDL add operator, +, on integers to
-construct your adder).
+construct your adder).  Of course, you are able to use all the basic
+Boolean operators in VHDL such as and, or, not, xor, xnor.  The ALU
+should be able to perform all operations required by your instruction
+set/block diagram.
 
 Please include with this assignment an up-to-date copy of your
 processor's block diagram and an up-to-date copy of your processor's
 instruction set.
 
 
-			Last revised 25-Jan-16
+			Last revised 27-Jul-17

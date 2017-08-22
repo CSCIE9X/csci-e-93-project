@@ -3,23 +3,50 @@
 		 Harvard Extension School CSCI E-93:
 			Computer Architecture
 
-			     Spring 2016
+			      Fall 2017
 
-		  Due: January 31, 2016 at Midnight
+		  Due: September 3, 2017 at Midnight
 
 Total of 20 Points
 
 1. (20 Points) Follow the directions given in the section web site at
-  http://sites.fas.harvard.edu/~cscie287/spring2016/section/index.html
-  to: (1) create a repository on http://code.seas.harvard.edu/ which
-  is a clone of the CSCI E-93 sample code repository, (2) install git
-  on your computers on which you'll be developing code, (3) log into
-  the CSCI E-93 Review Board Server at http://cr.cscie9x.net/, (4)
-  download and install RBTools, (5) complete the course questionnaire,
-  commit your questionnaire, create a tag "questionnaire" (without the
-  double quotes), and push your local repository to the server, (6)
-  post a review on Review Board for ps0-submit (i.e., the course
-  questionnaire).
+  http://sites.fas.harvard.edu/~cscie287/fall2017/section/index.html
+  to: (1) create a repository on http://cr.cscie9x.net/ which is a
+  clone of the CSCI E-93 sample code repository, (2) install git on
+  your computers on which you'll be developing code, and (3) create a
+  branch, (4) complete the course questionnaire, (5) on the nice
+  computers, use make to build
+  src/fix-this-program/fix-this-program.c; without changing the
+  makefile, create a branch for problem-set-0, modify
+  fix-this-program.c to allow it to build without any warnings or
+  errors, (6) on the nice computers, write a program named word-count
+  in C, C++, or Java to accomplish the tasks given in part 2 below in
+  this PS0, (7) commit your filled-in questionnaire, corrected
+  fix-this-program.c, and the word-count program, push the branch,
+  create a merge request, add a comment with the text:
+
+    @dwillenson @markford @frankel
+
+  and accept the merge request.
+
+  The course questionnaire is available in the sample code repository
+  at doc/Questionnaire.txt.
+
+  fix-this-program.c is available in the sample code repository at
+  src/fix-this-program/fix-this-program.c.
+
+2. (50 Points) Write a program named word-count that uses file I/O to
+  read a text file whose name is specified on the command line to the
+  word-count program.  The program will parse the input file into
+  words and will use a data structure of your choice to keep track of
+  the number of occurrences or each unique word that is found in the
+  input file.  Words will be delimited by white space which for our
+  purposes is defined to be any mix of spaces, tabs, or newlines --
+  including multiple occurrences of white space.  Upon reaching
+  end-of-file, the program will output to stdout the number of: (1)
+  lines in the input file, (2) number of words in the input file, (3)
+  a list of each unique word in the input file along with the number
+  of times that word appears in the file.
 
 
-			Last revised 25-Jan-16
+			Last revised 22-Aug-17

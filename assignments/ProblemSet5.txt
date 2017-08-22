@@ -3,9 +3,9 @@
 		 Harvard Extension School CSCI E-93:
 			Computer Architecture
 
-			     Spring 2016
+			      Fall 2017
 
-		  Due: April 10, 2016 at Midnight
+		  Due: November 12, 2017 at Midnight
 
 Total of 150 Points
 
@@ -27,25 +27,27 @@ Write a software simulator (emulator) for your instruction set
 architecture design.  The emulator should simulate the entire
 instruction set including Input/Output to the serial (RS-232) ports.
 For a description of the Input/Output system, refer to
-http://sites.fas.harvard.edu/~cscie287/fall2014/io_interface.txt.
+http://sites.fas.harvard.edu/~cscie287/fall2017/io_interface.txt.
 
 The emulator should contain an array which will contain the simulated
 memory.  That array must be at least 64K bytes in size and at most 2M
 bytes in size (all of the memory is byte-addressable by 21 bits).  If
-your architecture requires only 16-bit word access to memory, the
-memory may be organized as 16-bit words.  If your architecture allows
-both byte and 16-bit word accesses to memory, keep in mind that the
-memory system we are providing is organized as little endian.
+your architecture requires only 16-bit or 32-bit word access to
+memory, the memory may be organized as 16-bit or 32-bit words.  If
+your architecture allows more than one of byte, 16-bit word, and
+32-bit word accesses to memory, keep in mind that the memory system we
+are providing is organized as little endian.
 
 Initially, the emulator should either read the name of a file
-containing an image of memory in the format described in class from
-the command line or should prompt for such a file name.  Next, the
-emulator should initialize its simulated memory with the contents of
-the input .mif file.  Remember that the memory system we are providing
-allows only the low 32K bytes of memory to be initialized for a DE2-70
-and only the low 64K bytes of memory to be initialized for a DE2-115.
-The emulator should initialize all registers to their power-up state
--- probably this is just that the PC (Program Counter) is set to zero.
+containing an image of memory in the .mif format described in class
+from the command line or should prompt for such a file name.  Next,
+the emulator should initialize its simulated memory with the contents
+of the input .mif file.  Remember that the memory system we are
+providing allows only the low 32K bytes of memory to be initialized
+for a DE2-70 and only the low 64K bytes of memory to be initialized
+for a DE2-115.  The emulator should initialize all registers to their
+power-up state -- probably this is just that the PC (Program Counter)
+is set to zero.
 
 Next, the main loop should commence.  The emulator must simulate all
 actions taken by your architecture and the state of all your
@@ -67,10 +69,10 @@ input operation will stall until a complete line is typed).  Extra
 credit will be awarded for simulating the input ready bit.
 
 Because I/O is memory-mapped (i.e., is accessed via memory locations),
-it is probably advantageous to write functions to allow reading and
-writing of memory.  That way, any access to an I/O device register
-location in memory can perform the correct I/O operation rather than
-simply accessing the simulated memory location.
+it is probably advantageous to write accessor functions to allow
+reading and writing of memory.  That way, any access to an I/O device
+register location in memory can perform the correct I/O operation
+rather than simply accessing the simulated memory location.
 
 Your emulator must have the option of tracing your program's
 execution.  In the simplest approach, this would be displaying the PC
@@ -90,12 +92,13 @@ the assembly language defines -- this is action is called
 You must verify that your emulator works correctly by running the
 final program (problem 9) from Problem Set 4.  That is, write a
 program in your assembly language to prompt for two signed decimal
-2-byte (16-bit) integers and to multiply one by the other and then to
-output the resulting 2-byte integer product in decimal.
+integers (each of at least 2-bytes (16-bits) in size) and to multiply
+one by the other and then to output the resulting integer product in
+decimal as described in Problem Set 4.
 
 Please include with this assignment an up-to-date copy of your
 processor's block diagram and an up-to-date copy of your processor's
 instruction set.
 
 
-			Last revised 25-Jan-16
+			Last revised 27-Jul-17

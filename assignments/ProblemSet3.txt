@@ -3,9 +3,9 @@
 		 Harvard Extension School CSCI E-93:
 			Computer Architecture
 
-			     Spring 2016
+			      Fall 2017
 
-		   Due: March 13, 2016 at Midnight
+		  Due: October 15, 2017 at Midnight
 
 Total of 200 Points
 
@@ -18,15 +18,16 @@ Produce VHDL code for either the Altera DE2-70 or DE2-115 Development
 and Education Board using the Altera Quartus II Web Edition Software,
 Version 13.0, Service Pack 1.  Your code will reside in either the
 EP2C70F896C6N (DE2-70) (identified in Quartus as EP2C70F896C6) or
-EP4CE115F29C7 (DE2-115) FPGA device.  Your VHDL code should implement
-an 8-bit counter that resets (to value zero) when pushbutton KEY3
-(KEY[3]) is pressed and counts up by one each time pushbutton KEY2
-(KEY[2]) is pressed.  Note that the pushbuttons are active low (i.e.,
-normally high) and are debounced in hardware.  The value in the
-counter should be displayed in the two leftmost seven-segment LEDs
-(HEX7 (HEX7_D[*]) and HEX6 (HEX6_D[*])) as a hexadecimal number.  Note
-that the LED sements are active low (i.e., the segment is illuminated
-when the corresponding I/O pin is driven low).
+EP4CE115F29C7N (DE2-115) (identified in Quartus as EP4CE115F29C7) FPGA
+device.  Your VHDL code should implement an 8-bit counter that resets
+(to value zero) when pushbutton KEY3 (KEY[3]) is pressed and counts up
+by one each time pushbutton KEY2 (KEY[2]) is pressed.  Note that the
+pushbuttons are active low (i.e., normally high) and are debounced in
+hardware.  The value in the counter should be displayed in the two
+leftmost seven-segment LEDs (HEX7 (HEX7_D[*]) and HEX6 (HEX6_D[*])) as
+a hexadecimal number.  Note that the LED sements are active low (i.e.,
+the segment is illuminated when the corresponding I/O pin is driven
+low).
 
 For the DE2-70, KEY3 is connected to FPGA pin PIN_U29 and KEY2 is
 connected to FPGA pin PIN_U30.  In the Altera DE2-70 Development and
@@ -44,8 +45,12 @@ assignments for the seven-segment LEDs.
 
 Your counter should be designed from basic gates -- that is, do not
 simply use VHDL's ability to add one to an integer as a way to build a
-counter.  For example, your counter design might be built from full
-adders which are instantiated as necessary to create an 8-bit counter.
+counter.  For this problem set, start by implementing a full-adder
+component.  Use the full-adder to implement an 8-bit adder component.
+Implement a component that converts a four-bit vector into a vector
+for a seven-segment display.  Implement an 8-bit register with clear
+capability.  Use instantiations of these components to build your
+top-level entity.
 
 Remember to set "Reserve all unused pins:" to "As input tri-stated"
 under Assignments -> Settings... -> Category: Device -> Device and Pin
@@ -80,10 +85,10 @@ following directories:
 
 8. (30 Points) Final Program in High-level Language
 
-Write a program in C, C++, or Java to perform the actions described in
-the following description.  Write separate procedures, functions, or
-methods for each of these operations: (1) input a string, (2) convert
-a string to a signed integer numeric value in two's-complement
+Write a program in C, C++, or Java to perform the following actions.
+Write separate procedures, functions, or methods for each of these
+operations: (1) input a string using character input operations, (2)
+convert a string to a signed integer numeric value in two's-complement
 representation representing the same value in decimal and checking
 that all characters in the string are digits with a possible preceding
 negative-sign (which is the same character as a dash or hyphen) --
@@ -91,18 +96,29 @@ this function should indicate if the input string cannot be
 successfully be represented as a signed integer numeric value, (3)
 take two signed integer numeric values in two's-complement
 representation (these are named the multiplicand and the multiplier)
-and multiply them by each other to produce a signed integer numeric
-product in two's-complement representation (at your option, the
-product may be either at the same precision as the multiplicand and
-the multiplier or may be in twice the precision of the multiplicand
-and the multiplier) -- it is not necessary to detect overflow, (4)
-convert a signed integer numeric value in two's-complement
-representation to a string representing the same value in decimal
-(note that this value may be negative), and (5) output a string.  The
-minimum precision for all signed integer numeric values must be able
-to represent values from -32768 to 32767, inclusively.  These
-functions are specified to perform the same way that the functions
-required for the final project perform.
+and multiply them to produce a signed integer numeric product in
+two's-complement representation (at your option, the product may be
+either at the same precision as the multiplicand and the multiplier or
+may be in twice the precision of the multiplicand and the multiplier)
+-- it is not necessary to detect overflow, (4) convert a signed
+integer numeric value in two's-complement representation to a string
+representing the same value in decimal (note that this value may be
+negative), and (5) output a string using character output operations.
+These functions are specified to perform the same way that the
+functions required for the final project perform.
+
+The minimum number you need to be able to read is -32768 and the
+maximum number you need to be able to read is 32767.  You're welcome
+to accept numbers that span a larger range.  The minimum precision for
+all signed integer numeric values must be able to represent values
+from -32768 to 32767, inclusively.  Note that integer types in C, C++,
+and Java on all modern computers use two's-complement representation;
+therefore, you are welcome to use "int" as the data type for your
+numbers.  Please do *not* create arrays of bits to represent numeric
+values.
+
+All input characters are encoded using the ASCII character-encoding
+scheme.
 
 None of these functions should use any library methods to perform
 their computation.  That is, do not use built-in calls to perform the
@@ -131,5 +147,87 @@ produce a product, (5) the product is converted into a string
 representing that decimal value, (6) the product string is output
 preceded by an appropriate string describing the output.
 
+Your interaction with the main program might look like:
 
-			Last revised 25-Jan-16
+ This program multiplies two signed integers.  Please enter the first number: 3
+ Please enter the second number: 4
+ The product of 3 and 4 is 12.
+ This program multiplies two signed integers.  Please enter the first number:
+ 
+Function/procedure/method declarations might look like:
+
+(1) Input a string using character input operations:
+
+In C:
+ /* read one character at a time until you reach a newline.  Assemble the
+  *   characters into a null-terminated string.  That is, perform an
+  *   operation similar to "char *fgets(char *s, int n, FILE *stream)"
+  * sample typed input: "1234\n" or "-77\n"
+  * sample output: "1234" or "-77" */
+ char *getString(char *string, int stringSize);
+
+In Java:
+ // read one character at a time until you reach a newline.  Assemble the
+ //   characters into a string.
+ // sample typed input: "1234\n" or "-77\n"
+ // sample output: ['1', '2', '3', '4'] or ['-', '7', '7']
+ byte[] getString(InputStream is);
+
+(2) Convert a string to a signed integer numeric value:
+
+In C:
+ /* perform an operation similar to "long strtol(const char *str,
+  *   char **endptr, int base)"
+  * sample input: "1234"
+  * sample output: 1234 */
+ int stringToInt(char *value);
+
+In Java:
+ // perform an operation similar to "Integer.parseInt(new String(byte))"
+ // sample input: ['1,'2','3','4']
+ // sample output: 1234
+ int stringToInt(byte[] value);
+
+(3) Multiply two signed integer numeric values:
+
+In C:
+ /* signed multiplication; don't use the multiplication operator */
+ int multiply(int a, int b);
+
+In Java:
+ // signed multiplication; don't use the multiplication operator
+ int multiply(int a, int b);
+
+(4) Convert a signed integer numeric value in two's-complement
+    representation to a string representing the same value in decimal:
+
+In C:
+ /* perform an operation similar to "int sprintf(char *s, const char *format,
+  *   ...)" with a format string of "%d"
+  * sample input: 1234
+  * sample output: ['1,'2','3','4','\n'] */
+ char *intToString(int value);
+
+In Java:
+ // perform an operation similar to "String.valueOf(int)"
+ // sample input: 1234
+ // sample output: ['1,'2','3','4','\n']
+ byte[] intToString(int value);
+
+(5) Output a string using character output operations:
+
+In C:
+ /* output a string to stdout.  Perform an operation similar to
+  *   "int fputs(const char *s, FILE *stream)"
+  * should call "int fputc(int c, FILE *stream)" to perform the output */
+ void putString(char *value);
+
+In Java:
+ // output a string to stdout.  Perform an operation similar to
+ //   "System.out.print()"
+ // should call "System.out.print()" to perform the output character by
+ //   character
+ void putString(byte[] value);
+
+
+			Last revised 27-Jul-17
