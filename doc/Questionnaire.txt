@@ -1,11 +1,11 @@
-			Last revised 25-Jan-16
+			Last revised 27-Jul-17
 
 			  Questionnaire for
 
 		 Harvard Extension School CSCI E-93:
 			Computer Architecture
 
-			      Spring 2016
+			      Fall 2017
 
 
 Name:				Home/Cellular phone number:
@@ -14,12 +14,11 @@ Name:				Home/Cellular phone number:
 E-mail:				Work phone number:
 
 
-If you're not in the Boston area, where are you located?  What is your
-time zone?
+Where are you located?  What is your time zone?
 
 
-So that we can meet on-line, if necessary, what is your Skype name
-and/or your Google Hangouts name?
+So that we can meet on-line, what is your Skype name and/or your
+Google Hangouts name?  And, which do you prefer to use?
 
 
 Occupation (If an undergraduate student, please specify your major and
@@ -27,14 +26,25 @@ year and at which school; If a graduate student, please specify your
 department, field, and year and at which school).
 
 
-Have you taken CSCI E-10a (Formerly CSCI E-50a) (Introduction to
-Computer Science Using Java I), CSCI E-10b (Formerly CSCI E-50b)
-(Introduction to Computer Science Using Java II), CSCI E-22 (Formerly
-CSCI E-119) (Data Structures), ENSC E-123 or CSCI E-123 (Laboratory
-Electronics: Digital Circuit Design), PHYS E-123a (Laboratory
-Electronics: Analog Circuit Design), and/or CSCI E-28 (Formerly CSCI
-E-215) (Unix/Linux Systems Programming) or equivalents (specify
-which)?
+Have you taken:
+  CSCI E-10a (Formerly CSCI E-50a) (Introduction to Computer Science
+      Using Java I),
+  CSCI E-10b (Formerly CSCI E-50b) (Introduction to Computer Science
+      Using Java II),
+  CSCI E-22 (Formerly CSCI E-119) (Data Structures),
+  ENSC E-123 or CSCI E-123 (Laboratory Electronics: Digital Circuit
+      Design),
+  PHYS E-123a (Laboratory Electronics: Analog Circuit Design),
+  CSCI E-28 (Formerly CSCI E-215) (Unix/Linux Systems Programming),
+  or equivalents
+(specify which)?
+
+
+Are you currently working toward a degree in a degree program?  If so,
+which program and what degree?
+
+
+Are you taking any other classes concurrently with this one?
 
 
 Do you have experience implementing many different data structures
@@ -59,11 +69,25 @@ to register?  Also, are you registered as a distance student?  Do you
 intend to attend classes in person?
 
 
-If you are a distance student, have you already ordered and/or
-received the Altera/Terasic DE2-115 Developemnt Board?
+This class has a proctored midterm exam.  Distance students are
+required to make arrangements for a proctor.  See
+https://www.extension.harvard.edu/resources-policies/exams-grades-transcripts/exams-online-courses
+for information about proctors.  If you live within the six-state New
+England area (Connecticut, Maine, Massachusetts, New Hampshire, Rhode
+Island, and Vermont) you must come to campus to take your exam.  Are
+you taking the midterm exam on campus?  If not, have you already made
+arrangements for a proctor?
 
 
-Are you taking the course for graduate credit?
+Do you plan to purchase your own Altera/Terasic DE2-115 Developemnt
+Board?
+
+
+If you are planning to purchase your own Altera/Terasic DE2-115
+Developemnt Board, have you already ordered and/or received it?
+
+
+Are you taking the course for graduate credit or noncredit?
 
 
 If section cannot be held on Tuesday evening, on which other
@@ -96,4 +120,4 @@ What is your motivation for taking this course?
 If the class needs to be rescheduled, is Thursday evening acceptable?
 
 
-Other comments (please continue on the back):
+Other comments:
