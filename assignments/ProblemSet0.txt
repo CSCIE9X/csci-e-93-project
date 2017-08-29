@@ -15,38 +15,58 @@ Total of 20 Points
   clone of the CSCI E-93 sample code repository, (2) install git on
   your computers on which you'll be developing code, and (3) create a
   branch, (4) complete the course questionnaire, (5) on the nice
-  computers, use make to build
-  src/fix-this-program/fix-this-program.c; without changing the
-  makefile, create a branch for problem-set-0, modify
-  fix-this-program.c to allow it to build without any warnings or
-  errors, (6) on the nice computers, write a program named word-count
-  in C, C++, or Java to accomplish the tasks given in part 2 below in
-  this PS0, (7) commit your filled-in questionnaire, corrected
-  fix-this-program.c, and the word-count program, push the branch,
+  computers, use make to build either
+  src/fix-this-program/c/fix-this-program.c,
+  src/fix-this-program/c++/fix-this-program.cpp, or
+  src/fix-this-program/java/FixThisProgram.java (depending on your
+  choice of C, C++, or Java); without changing the corresponding
+  makefile, create a branch for problem-set-0, modify the appropriate
+  source file to allow it to build without any warnings or errors on
+  the nice computers, (6) also on the nice computers, write a program
+  named word-count in C, C++, or Java to accomplish the tasks given in
+  part 2 below in this PS0, (7) commit your filled-in questionnaire,
+  corrected fix-this-program.c, fix-this-program.cpp, or
+  FixThisProgram.java, and the word-count program, push the branch,
   create a merge request, add a comment with the text:
 
-    @dwillenson @markford @frankel
+    @markford @stbenjam @frankel
 
   and accept the merge request.
 
   The course questionnaire is available in the sample code repository
   at doc/Questionnaire.txt.
 
-  fix-this-program.c is available in the sample code repository at
-  src/fix-this-program/fix-this-program.c.
+  For C, fix-this-program.c is available in the sample code repository
+  at src/fix-this-program/c/fix-this-program.c.  For C++,
+  fix-this-program.cpp is available in the sample code repository at
+  src/fix-this-program/c++/fix-this-program.cpp.  For Java,
+  FixThisProgram.java is available in the sample code repository at
+  src/fix-this-program/java/FixThisProgram.java.
 
-2. (50 Points) Write a program named word-count that uses file I/O to
-  read a text file whose name is specified on the command line to the
-  word-count program.  The program will parse the input file into
-  words and will use a data structure of your choice to keep track of
-  the number of occurrences or each unique word that is found in the
-  input file.  Words will be delimited by white space which for our
-  purposes is defined to be any mix of spaces, tabs, or newlines --
-  including multiple occurrences of white space.  Upon reaching
-  end-of-file, the program will output to stdout the number of: (1)
-  lines in the input file, (2) number of words in the input file, (3)
-  a list of each unique word in the input file along with the number
-  of times that word appears in the file.
+2. (50 Points) Write a program named word-count.c, word-count.cpp, or
+  WordCount.java, as appropriate, that uses file I/O to read a text
+  file whose name is specified on the command line to the program.
+  The program will parse the input file into words and will use a data
+  structure of your choice to keep track of the number of occurrences
+  or each unique word that is found in the input file.  Words will be
+  delimited by white space which for our purposes is defined to be any
+  mix of spaces, tabs, or newlines -- including multiple occurrences
+  of white space.  Upon reaching end-of-file, the program will output
+  to stdout the number of: (1) lines in the input file, (2) number of
+  words in the input file, (3) a list of each unique word in the input
+  file along with the number of times that word appears in the file.
+  Your solution must compile and execute correctly on the nice
+  computers.  Remember to include a makefile to complete the build.
+
+  Depending on your programming experience, you should choose an
+  appropriate data structure in which the words and word counts are
+  stored.  Although not worthy of full credit, using an array of fixed
+  size is acceptable.  Using a linked list -- perhaps sorted in
+  alphabetical order -- would be worthy of full credit even though the
+  performance of searching and inserting into a linked list may be
+  inefficient.  Do not spend your time implementing a more efficient
+  solution unless you are sure that you can complete this problem set
+  on time.
 
 
-			Last revised 22-Aug-17
+			Last revised 29-Aug-17
