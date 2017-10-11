@@ -44,32 +44,36 @@ public class Assembler {
     public Instruction parse(String line) {
         String[] split = line.split(",");
         if (split.length > 3) {
-            throw new IllegalArgumentException("unknown instruction:" + line);
+            return Instruction.error("unknown instruction");
         }
-        String type = split[0].trim();
-        switch (type) {
-            case "AND": {
-                OpCode opcode = OpCode.ALU;
-                int r1 = toRegister(split[1].trim());
-                int r2 = toRegister(split[2].trim());
-                int functionCode = 1;
-                return new Instruction()
-                        .setOpcode(opcode)
-                        .setR1(r1)
-                        .setR2(r2)
-                        .setFunc(functionCode);
+        try {
+            String type = split[0].trim();
+            switch (type) {
+                case "AND": {
+                    OpCode opcode = OpCode.ALU;
+                    int r1 = toRegister(split[1].trim());
+                    int r2 = toRegister(split[2].trim());
+                    int functionCode = 1;
+                    return new Instruction()
+                            .setOpcode(opcode)
+                            .setR1(r1)
+                            .setR2(r2)
+                            .setFunc(functionCode);
+                }
+                case "ADDI": {
+                    OpCode opcode = OpCode.ADDI;
+                    int r1 = toRegister(split[1].trim());
+                    int immediate = toImmediate(split[2].trim());
+                    return new Instruction()
+                            .setOpcode(opcode)
+                            .setR1(r1)
+                            .setImmediate(immediate);
+                }
+                default:
+                    return Instruction.error("unknown instruction. Are you missing a comma?");
             }
-            case "ADDI": {
-                OpCode opcode = OpCode.ADDI;
-                int r1 = toRegister(split[1].trim());
-                int immediate = toImmediate(split[2].trim());
-                return new Instruction()
-                        .setOpcode(opcode)
-                        .setR1(r1)
-                        .setImmediate(immediate);
-            }
-            default:
-                throw new IllegalArgumentException("unknown instruction. Are you missing a comma?: " + line);
+        } catch (InvalidRegisterException e) {
+            return Instruction.error("Invalid register " + e.getValue());
         }
     }
 
@@ -154,13 +158,15 @@ public class Assembler {
      * Parses the source into a list of Instructions.
      * @param reader Source for the program
      * @return list of instructions that are ready to encode
-     * @throws IOException
+     * @throws IOException when there's an error reading a line
      */
     public List<Instruction> parse(Reader reader) throws IOException {
         List<Instruction> instructions = new ArrayList<>();
         BufferedReader br = new BufferedReader(reader);
         String line;
+        int lineNumber = 0;
         while ((line = br.readLine()) != null) {
+            lineNumber++;
             if (line.startsWith("#")) {
                 // it's a comment, ignore it
                 continue;
@@ -169,6 +175,8 @@ public class Assembler {
             // todo need to handle labels here
 
             Instruction instruction = parse(line);
+            instruction.setLineNumber(lineNumber);
+            instruction.setSourceLine(line);
             instructions.add(instruction);
         }
 
@@ -181,13 +189,13 @@ public class Assembler {
      * @return number of the register which is within range
      * @throws IllegalArgumentException if we can't parse it or it's out of range
      */
-    private int toRegister(String s) {
+    private int toRegister(String s) throws InvalidRegisterException {
         if (!s.startsWith("$r")) {
-            throw new IllegalArgumentException("unknown register format:" + s);
+            throw new InvalidRegisterException(s);
         }
         int register = Integer.parseInt(s.substring(2));
         if (register > MAX_REGISTERS-1) {
-            throw new IllegalArgumentException("unknown register: " + register);
+            throw new InvalidRegisterException(s);
         }
         return register;
     }

@@ -8,7 +8,8 @@ import java.util.function.Supplier;
  * @author markford
  */
 public enum OpCode {
-    ALU(1), ADDI(2);
+    ALU(1),
+    ADDI(2);
 
     private final int value;
 
