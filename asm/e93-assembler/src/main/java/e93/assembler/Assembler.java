@@ -1,6 +1,8 @@
 package e93.assembler;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
@@ -220,5 +222,29 @@ public class Assembler {
         // immediate into the temporary register and then rewrite the instruction
         // to use this temporary register instead of an immediate.
         return Integer.parseInt(s);
+    }
+
+    public static void main(String[] args) throws Exception {
+        if (args == null || args.length == 0) {
+            System.err.println("must pass name of input file");
+            return;
+        }
+
+        File file = new File(args[0]);
+        if (!file.isFile()) {
+            System.err.println("file not found or not readable:" + args[0]);
+            return;
+        }
+
+        try (FileReader fileReader = new FileReader(file)) {
+            Assembler assembler = new Assembler();
+
+            List<Instruction> instructions = assembler.parse(fileReader);
+
+            // this isn't a MIF file format but rather a simple toString() on each of the instructions
+            for(Instruction instruction : instructions) {
+                System.out.println(instruction);
+            }
+        }
     }
 }

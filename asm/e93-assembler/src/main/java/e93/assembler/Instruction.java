@@ -1,6 +1,7 @@
 package e93.assembler;
 
 import javax.annotation.Generated;
+import java.util.Objects;
 
 /**
  * Simple data structure for an Instruction. All of the instructions in the
@@ -202,32 +203,38 @@ public class Instruction {
     public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         final Instruction that = (Instruction) o;
-
-        if (address != that.address) return false;
-        if (r1 != that.r1) return false;
-        if (r2 != that.r2) return false;
-        if (immediate != that.immediate) return false;
-        if (func != that.func) return false;
-        if (lineNumber != that.lineNumber) return false;
-        if (opcode != that.opcode) return false;
-        if (label != null ? !label.equals(that.label) : that.label != null) return false;
-        return sourceLine != null ? sourceLine.equals(that.sourceLine) : that.sourceLine == null;
+        return address == that.address &&
+                r1 == that.r1 &&
+                r2 == that.r2 &&
+                immediate == that.immediate &&
+                func == that.func &&
+                lineNumber == that.lineNumber &&
+                opcode == that.opcode &&
+                Objects.equals(label, that.label) &&
+                Objects.equals(sourceLine, that.sourceLine) &&
+                Objects.equals(errorMessage, that.errorMessage);
     }
 
     @Override
     @Generated("by IDE")
     public int hashCode() {
-        int result = address;
-        result = 31 * result + (opcode != null ? opcode.hashCode() : 0);
-        result = 31 * result + r1;
-        result = 31 * result + r2;
-        result = 31 * result + immediate;
-        result = 31 * result + func;
-        result = 31 * result + (label != null ? label.hashCode() : 0);
-        result = 31 * result + lineNumber;
-        result = 31 * result + (sourceLine != null ? sourceLine.hashCode() : 0);
-        return result;
+        return Objects.hash(address, opcode, r1, r2, immediate, func, label, lineNumber, sourceLine, errorMessage);
+    }
+
+    @Override
+    public String toString() {
+        return "Instruction{" +
+                "address=" + address +
+                ", opcode=" + opcode +
+                ", r1=" + r1 +
+                ", r2=" + r2 +
+                ", immediate=" + immediate +
+                ", func=" + func +
+                ", label='" + label + '\'' +
+                ", lineNumber=" + lineNumber +
+                ", sourceLine='" + sourceLine + '\'' +
+                ", errorMessage='" + errorMessage + '\'' +
+                '}';
     }
 }
