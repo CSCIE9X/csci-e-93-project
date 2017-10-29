@@ -10,5 +10,5 @@ Running:
 
 - build as shown above
 - `cd target` (where the output files from the build go)
-- java e93-assembler-1.0-SNAPSHOT.jar name-of-your-file.asm
+- java -jar e93-assembler-1.0-SNAPSHOT.jar name-of-your-file.asm
 
