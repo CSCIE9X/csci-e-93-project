@@ -3,6 +3,12 @@ package e93.assembler.test;
 import e93.assembler.Assembler;
 import e93.assembler.Instruction;
 import e93.assembler.OpCode;
+import e93.assembler.ast.AddImmediate;
+import e93.assembler.ast.And;
+import e93.assembler.ast.JumpImmediate;
+import e93.assembler.ast.LoadWord;
+import e93.assembler.ast.OrImmediate;
+import e93.assembler.ast.StoreWord;
 import org.junit.Test;
 
 import java.io.StringReader;
@@ -21,7 +27,7 @@ public class AssemblerTest {
     @Test
     public void parseTwoRegisterType() throws Exception {
         Instruction actual = assembler.parse("AND, $r1, $r2");
-        assertEquals(new Instruction()
+        assertEquals(new And()
                 .setOpcode(OpCode.ALU)
                 .setR1(1)
                 .setR2(2)
@@ -30,9 +36,33 @@ public class AssemblerTest {
     }
 
     @Test
-    public void parseOneRegisterImmediateType() throws Exception {
+    public void parseAddImmediate() throws Exception {
         Instruction instruction = assembler.parse("ADDI, $r1, 123");
-        assertEquals(new Instruction().setOpcode(OpCode.ADDI).setR1(1).setImmediate(123), instruction);
+        assertEquals(new AddImmediate().setOpcode(OpCode.ADDI).setR1(1).setImmediate(123), instruction);
+    }
+
+    @Test
+    public void parseJumpImmediate() throws Exception {
+        Instruction instruction = assembler.parse("J, 0x123");
+        assertEquals(new JumpImmediate().setOpcode(OpCode.J).setImmediate(0x123<<1), instruction);
+    }
+
+    @Test
+    public void parseLoadWord() throws Exception {
+        Instruction instruction = assembler.parse("LW, $r1, $r2");
+        assertEquals(new LoadWord().setOpcode(OpCode.LW).setR1(1).setR2(2), instruction);
+    }
+
+    @Test
+    public void parseStoreWord() throws Exception {
+        Instruction instruction = assembler.parse("SW, $r1, $r2");
+        assertEquals(new StoreWord().setOpcode(OpCode.SW).setR1(1).setR2(2), instruction);
+    }
+
+    @Test
+    public void parseOrImmediate() throws Exception {
+        Instruction instruction = assembler.parse("ORI, $r1, 0x123");
+        assertEquals(new OrImmediate().setOpcode(OpCode.ORI).setR1(1).setImmediate(0x123), instruction);
     }
 
     @Test
@@ -49,28 +79,28 @@ public class AssemblerTest {
 
     @Test
     public void invalidRegister() throws Exception {
-        Instruction instruction = assembler.parse("AND, r16, r2");
+        Instruction instruction = assembler.parse("AND, $r16, r2");
         assertFalse(instruction.isValid());
     }
 
     @Test
     public void encodeTwoRegisterType() throws Exception {
         Instruction instruction = assembler.parse("AND, $r1, $r2");
-        int encoded = assembler.encode(instruction);
+        int encoded = Assembler.encode(instruction);
 
         // instruction in binary == 0001000100100001
         // opc   r1   r2  func
         // 0001 0001 0010 0001
         // convert to hex
-        //   0    1    2    1
+        //   1    1    2    1
         assertEquals(0x1121, encoded);
     }
 
     @Test
     public void decodeTwoRegisterType() throws Exception {
         Instruction expected = assembler.parse("AND, $r1, $r2");
-        int encoded = assembler.encode(expected);
-        assertEquals(expected, assembler.decode(encoded));
+        int encoded = Assembler.encode(expected);
+        assertEquals(expected, Assembler.decode(encoded));
     }
 
     @Test

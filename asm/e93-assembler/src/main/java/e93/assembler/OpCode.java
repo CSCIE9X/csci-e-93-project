@@ -1,15 +1,17 @@
 package e93.assembler;
 
 import javax.annotation.Generated;
-import java.util.Arrays;
-import java.util.function.Supplier;
 
 /**
  * @author markford
  */
 public enum OpCode {
     ALU(1),
-    ADDI(2);
+    ADDI(2),
+    ORI(3),
+    SW(4),
+    LW(5),
+    J(6);
 
     private final int value;
 

@@ -1,5 +1,12 @@
 package e93.assembler;
 
+import e93.assembler.ast.AddImmediate;
+import e93.assembler.ast.And;
+import e93.assembler.ast.JumpImmediate;
+import e93.assembler.ast.LoadWord;
+import e93.assembler.ast.OrImmediate;
+import e93.assembler.ast.StoreWord;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -26,6 +33,8 @@ public class Assembler {
      * This should be enough bits to mask all possible values of the register.
      */
     private static final int REGISTER_MASK = 0xf;
+
+    private static final int IMMEDIATE_MASK = 0xff;
 
     /**
      * Parses a line of assembly and returns an instruction that the system will
@@ -56,7 +65,7 @@ public class Assembler {
                     int r1 = toRegister(split[1].trim());
                     int r2 = toRegister(split[2].trim());
                     int functionCode = 1;
-                    return new Instruction()
+                    return new And()
                             .setOpcode(opcode)
                             .setR1(r1)
                             .setR2(r2)
@@ -66,7 +75,41 @@ public class Assembler {
                     OpCode opcode = OpCode.ADDI;
                     int r1 = toRegister(split[1].trim());
                     int immediate = toImmediate(split[2].trim());
-                    return new Instruction()
+                    return new AddImmediate()
+                            .setOpcode(opcode)
+                            .setR1(r1)
+                            .setImmediate(immediate);
+                }
+                case "SW": {
+                    OpCode opcode = OpCode.SW;
+                    int r1 = toRegister(split[1].trim());
+                    int r2 = toRegister(split[2].trim());
+                    return new StoreWord()
+                            .setOpcode(opcode)
+                            .setR1(r1)
+                            .setR2(r2);
+                }
+                case "LW": {
+                    OpCode opcode = OpCode.LW;
+                    int r1 = toRegister(split[1].trim());
+                    int r2 = toRegister(split[2].trim());
+                    return new LoadWord()
+                            .setOpcode(opcode)
+                            .setR1(r1)
+                            .setR2(r2);
+                }
+                case "J": {
+                    OpCode opcode = OpCode.J;
+                    int immediate = toImmediate(split[1].trim());
+                    return new JumpImmediate()
+                            .setOpcode(opcode)
+                            .setImmediate(immediate<<1);
+                }
+                case "ORI": {
+                    OpCode opcode = OpCode.ORI;
+                    int r1 = toRegister(split[1].trim());
+                    int immediate = toImmediate(split[2].trim());
+                    return new OrImmediate()
                             .setOpcode(opcode)
                             .setR1(r1)
                             .setImmediate(immediate);
@@ -88,7 +131,7 @@ public class Assembler {
      * @param instruction an instruction that's had its label resolved (assuming it had one)
      * @return integer version of the instruction
      */
-    public int encode(Instruction instruction) {
+    public static int encode(Instruction instruction) {
 
         assert instruction.getLabel() == null;
 
@@ -111,6 +154,19 @@ public class Assembler {
                                 ;
                 }
                 break;
+            case SW:
+            case LW:
+                return instruction.getOpcode().getValue()<<12 |
+                        instruction.getR1() << 8 |
+                        instruction.getR2() << 4;
+            case ORI:
+            case ADDI:
+                return instruction.getOpcode().getValue()<<12 |
+                            instruction.getR1() << 8 |
+                            instruction.getImmediate();
+            case J:
+                return instruction.getOpcode().getValue()<<12 |
+                        instruction.getImmediate();
         }
         throw new IllegalArgumentException("unhandled instruction:" + instruction);
     }
@@ -123,7 +179,7 @@ public class Assembler {
      * @return Instruction
      * @throws IllegalArgumentException if we don't know how to decode it
      */
-    public Instruction decode(int encoded) {
+    public static Instruction decode(int encoded) {
         // the opcode is always in 15..12 but the rest of the instruction is
         // unknown until we know what the opcode is so get that first!
         int value = encoded >> 12;
@@ -146,12 +202,33 @@ public class Assembler {
                         // REGISTER_MASK in order to get all of the
                         // bits for the register number
                         int r2 = (encoded >> 4) & REGISTER_MASK;
-                        return new Instruction()
+                        return new And()
                                 .setOpcode(opCode)
                                 .setFunc(ALUFunctionCodes.AND)
                                 .setR1(r1)
                                 .setR2(r2);
                 }
+
+            case SW:
+                return new StoreWord().setOpcode(opCode)
+                        .setR1((encoded >> 8) & REGISTER_MASK)
+                        .setR2((encoded >> 4) & REGISTER_MASK);
+            case LW:
+                return new LoadWord().setOpcode(opCode)
+                        .setR1((encoded >> 8) & REGISTER_MASK)
+                        .setR2((encoded >> 4) & REGISTER_MASK);
+            case ORI:
+                return new OrImmediate().setOpcode(opCode)
+                        .setR1((encoded >> 8) & REGISTER_MASK)
+                        .setImmediate(encoded & IMMEDIATE_MASK);
+            case ADDI:
+                return new AddImmediate().setOpcode(opCode)
+                        .setR1((encoded >> 8) & REGISTER_MASK)
+                        .setImmediate(encoded & IMMEDIATE_MASK);
+            case J:
+                return new JumpImmediate().setOpcode(opCode)
+                        .setImmediate((encoded & 0xfff)>>1);
+
         }
         throw new IllegalArgumentException("unhandled encoded instruction:" + encoded);
     }
@@ -221,7 +298,11 @@ public class Assembler {
         // temporary register and LUI and similar instructions to put the large
         // immediate into the temporary register and then rewrite the instruction
         // to use this temporary register instead of an immediate.
-        return Integer.parseInt(s);
+        if (s.startsWith("0x")) {
+            return Integer.parseInt(s.substring(2), 16);
+        } else {
+            return Integer.parseInt(s);
+        }
     }
 
     public static void main(String[] args) throws Exception {

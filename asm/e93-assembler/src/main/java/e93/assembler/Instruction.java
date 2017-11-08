@@ -1,5 +1,7 @@
 package e93.assembler;
 
+import e93.assembler.ast.AssemblyVisitor;
+
 import javax.annotation.Generated;
 import java.util.Objects;
 
@@ -15,7 +17,7 @@ import java.util.Objects;
  *
  * @author markford
  */
-public class Instruction {
+public abstract class Instruction {
     /**
      * The address (or value of the PC) of the instruction is set by the assembler.
      * This should be done at a point where you're sure that the instruction
@@ -81,7 +83,12 @@ public class Instruction {
     private String errorMessage;
 
     public static Instruction error(String errorMessage) {
-        return new Instruction().setErrorMessage(errorMessage);
+        return new Instruction() {
+            @Override
+            public void accept(final AssemblyVisitor assemblyVisitor) {
+
+            }
+        }.setErrorMessage(errorMessage);
     }
 
     public boolean isValid() {
@@ -197,6 +204,8 @@ public class Instruction {
         this.errorMessage = errorMessage;
         return this;
     }
+
+    public abstract void accept(AssemblyVisitor assemblyVisitor);
 
     @Override
     @Generated("by IDE")
