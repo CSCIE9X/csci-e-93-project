@@ -1,3 +1,3 @@
 # CSCI E-93: Computer Architecture
 
-[Course Web Site](https://sites.fas.harvard.edu/~libe295/spring2019/index.html)
+[Course Web Site](http://sites.fas.harvard.edu/~cscie287/spring2019/index.html)
