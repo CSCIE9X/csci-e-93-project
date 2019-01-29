@@ -1,11 +1,11 @@
-			Last revised 27-Jul-17
+			Last revised 9-Jan-19
 
 			  Questionnaire for
 
 		 Harvard Extension School CSCI E-93:
 			Computer Architecture
 
-			      Fall 2017
+			     Spring 2019
 
 
 Name:				Home/Cellular phone number:
@@ -17,8 +17,8 @@ E-mail:				Work phone number:
 Where are you located?  What is your time zone?
 
 
-So that we can meet on-line, what is your Skype name and/or your
-Google Hangouts name?  And, which do you prefer to use?
+So that we can meet on-line, if necessary, what is your Skype name
+and/or your Google Hangouts name?  And, which do you prefer to use?
 
 
 Occupation (If an undergraduate student, please specify your major and
@@ -31,13 +31,20 @@ Have you taken:
       Using Java I),
   CSCI E-10b (Formerly CSCI E-50b) (Introduction to Computer Science
       Using Java II),
-  CSCI E-22 (Formerly CSCI E-119) (Data Structures),
+  CSCI E-28 (Formerly CSCI E-215) (Unix/Linux Systems Programming),
+  CSCI E-50 (Formerly CSCI E-52) (Intensive Introduction to Computer
+      Science),
   ENSC E-123 or CSCI E-123 (Laboratory Electronics: Digital Circuit
       Design),
   PHYS E-123a (Laboratory Electronics: Analog Circuit Design),
-  CSCI E-28 (Formerly CSCI E-215) (Unix/Linux Systems Programming),
+  CSCI E-124 (Data Structures and Algorithms),
   or equivalents
 (specify which)?
+
+
+Have you taken CSCI E-22 (Formerly CSCI E-119) (Data Structures)?
+
+	If not, how do you meet the prerequisite?
 
 
 Are you currently working toward a degree in a degree program?  If so,
@@ -79,23 +86,22 @@ you taking the midterm exam on campus?  If not, have you already made
 arrangements for a proctor?
 
 
-Do you plan to purchase your own Altera/Terasic DE2-115 Developemnt
+Do you plan to purchase your own Altera/Terasic DE2-115 Development
 Board?
 
 
 If you are planning to purchase your own Altera/Terasic DE2-115
-Developemnt Board, have you already ordered and/or received it?
+Development Board, have you already ordered and/or received it?  If
+you are a distance student (i.e., if you are unable to borrow the
+hardware and return the hardware in person), you must purchase your
+own hardware.
 
 
-Are you taking the course for graduate credit or noncredit?
+Are you taking the course for undergraduate credit, graduate credit,
+or noncredit?
 
 
-If section cannot be held on Tuesday evening, on which other
-evening(s) would you prefer section be held?  Please select your
-preferences from among Monday, Wednesday, and Thursday.
-
-
-What appropriate course or work experience do you have?
+What additional appropriate course or work experience do you have?
 
 
 What is your math background?
