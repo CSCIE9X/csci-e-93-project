@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -27,14 +28,13 @@ public class MifWriter {
 
         String allInstructions = instructions
                 .stream()
-                .map(Assembler::encode)
-                .map(assembled -> {
-                    int addy = address.getAndIncrement();
-                    return String.format("%04x : %04x;", addy, assembled);
-                })
+                .map(instruction -> instruction.setAddress(address.getAndIncrement()))
+                .map(instruction -> String.format("%04x : %04x;%s",
+                        instruction.getAddress(),
+                        Assembler.encode(instruction),
+                        Optional.ofNullable(instruction.getSourceLine()).map(line -> String.format(" -- %s", line)).orElse("")))
                 .collect(Collectors.joining("\n"));
 
         pw.print(String.format(templateStr, allInstructions));
     }
-
 }

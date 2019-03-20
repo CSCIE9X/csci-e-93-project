@@ -5,6 +5,6 @@ DATA_RADIX = HEX;             -- The radix for data values
 CONTENT                       -- start of (address : data pairs)
 BEGIN
 
-0000 : 1121;
+0000 : 1121; -- AND, $r1, $r2
 
 END

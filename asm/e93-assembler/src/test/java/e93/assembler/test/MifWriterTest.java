@@ -1,12 +1,13 @@
 package e93.assembler.test;
 
+import e93.assembler.Assembler;
 import e93.assembler.Instruction;
 import e93.assembler.MifWriter;
-import e93.assembler.ast.And;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.Collections;
+import java.io.StringReader;
+import java.util.List;
 
 import static e93.assembler.IOUtils.asString;
 import static org.junit.Assert.assertEquals;
@@ -14,8 +15,8 @@ import static org.junit.Assert.assertEquals;
 public class MifWriterTest {
     @Test
     public void simple() throws IOException {
-        Instruction instruction = new And().setR1(1).setR2(2);
-        String actual = MifWriter.writeToString(Collections.singletonList(instruction));
+        List<Instruction> instructions = new Assembler().parse(new StringReader("AND, $r1, $r2"));
+        String actual = MifWriter.writeToString(instructions);
         String expected = asString("/sample.mif");
         assertEquals(expected, actual);
 
