@@ -11,3 +11,9 @@ Running:
 - build as shown above
 - java -jar target/e93-assembler-1.0-SNAPSHOT.jar name-of-your-file.asm
 
+Running a single test:
+
+```
+./mvnw clean test -Dtest=AssemblerTest
+```
+

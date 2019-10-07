@@ -24,8 +24,9 @@ public class AssemblerTest {
 
     private Assembler assembler = new Assembler();
 
+    // todo - most of these tests are about parsing instructions, move them to an InstructionParser and test
     @Test
-    public void parseTwoRegisterType() throws Exception {
+    public void parseTwoRegisterType() {
         Instruction actual = assembler.parse("AND, $r1, $r2");
         assertEquals(new And()
                 .setOpcode(OpCode.ALU)
@@ -36,19 +37,19 @@ public class AssemblerTest {
     }
 
     @Test
-    public void parseAddImmediate() throws Exception {
+    public void parseAddImmediate() {
         Instruction instruction = assembler.parse("ADDI, $r1, 123");
         assertEquals(new AddImmediate().setOpcode(OpCode.ADDI).setR1(1).setImmediate(123), instruction);
     }
 
     @Test
-    public void parseJumpImmediate() throws Exception {
+    public void parseJumpImmediate() {
         Instruction instruction = assembler.parse("J, 0x123");
         assertEquals(new JumpImmediate().setOpcode(OpCode.J).setImmediate(0x123<<1), instruction);
     }
 
     @Test
-    public void parseLoadWord() throws Exception {
+    public void parseLoadWord() {
         Instruction instruction = assembler.parse("LW, $r1, $r2");
         assertEquals(new LoadWord().setOpcode(OpCode.LW).setR1(1).setR2(2), instruction);
     }

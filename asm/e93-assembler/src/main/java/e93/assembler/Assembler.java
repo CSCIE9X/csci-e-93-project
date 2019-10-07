@@ -239,6 +239,7 @@ public class Assembler {
      * @return list of instructions that are ready to encode
      * @throws IOException when there's an error reading a line
      */
+    // todo return something AssembledData which is a List<Instruction> plus directives and maybe labels
     public List<Instruction> parse(Reader reader) throws IOException {
         List<Instruction> instructions = new ArrayList<>();
         BufferedReader br = new BufferedReader(reader);
@@ -250,6 +251,8 @@ public class Assembler {
                 // it's a comment, ignore it
                 continue;
             }
+
+            // todo add support for a simple directive here like .asciiz. Directive, DirectiveParser, etc
 
             // todo need to handle labels here
 
@@ -286,7 +289,6 @@ public class Assembler {
      * @throws NumberFormatException if an unknown format
      */
     private int toImmediate(String s) {
-        // todo - you may want to support hex
         // todo - assert the register value can be encoded
 
         // With respect to the encoding assertion, keep in mind that you may only
@@ -320,12 +322,11 @@ public class Assembler {
         try (FileReader fileReader = new FileReader(file)) {
             Assembler assembler = new Assembler();
 
+
+
             List<Instruction> instructions = assembler.parse(fileReader);
 
-            // this isn't a MIF file format but rather a simple toString() on each of the instructions
-            for(Instruction instruction : instructions) {
-                System.out.println(instruction);
-            }
+            System.out.println(MifWriter.writeToString(instructions));
         }
     }
 }
