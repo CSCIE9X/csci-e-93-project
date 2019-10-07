@@ -4,6 +4,7 @@ jdk:
   - oraclejdk8
   - oraclejdk9
   - openjdk8
+  - openjdk9
 script:
   - cd asm/e93-assembler
   - ./mvnw test -B
