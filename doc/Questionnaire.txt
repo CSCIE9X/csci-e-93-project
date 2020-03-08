@@ -1,11 +1,11 @@
-			Last revised 9-Jan-19
+			Last revised 15-Jan-20
 
 			  Questionnaire for
 
 		 Harvard Extension School CSCI E-93:
 			Computer Architecture
 
-			     Spring 2019
+			     Spring 2020
 
 
 Name:				Home/Cellular phone number:
@@ -69,6 +69,10 @@ programmer?
 
 Do you have experience designing digital logic circuits?  If yes,
 please describe.
+
+
+Do you have experience programming in VHDL or Verilog?  If yes, please
+describe.
 
 
 Are you already registered for this class?  -- If not, do you intend
