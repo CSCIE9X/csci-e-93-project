@@ -14,7 +14,7 @@ public class ExecutionVisitor implements AssemblyVisitor {
 
     private int pc = 0;
     private MemorySubsystem memorySubsystem;
-    private int[] registers = new int[16];
+    private int[] registers;
 
     public ExecutionVisitor(MemorySubsystem memorySubsystem, int[] registers) {
         this.memorySubsystem = memorySubsystem;

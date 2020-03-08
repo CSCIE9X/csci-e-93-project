@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 public class MifWriterTest {
     @Test
     public void simple() throws IOException {
-        List<Instruction> instructions = new Assembler().parse(new StringReader("AND, $r1, $r2"));
+        List<Instruction> instructions = new Assembler().parse(new StringReader(asString("/sample.asm")));
         String actual = MifWriter.writeToString(instructions);
         String expected = asString("/sample.mif");
         assertEquals(expected, actual);
