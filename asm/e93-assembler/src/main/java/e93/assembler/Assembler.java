@@ -48,11 +48,23 @@ public class Assembler {
      *       for the instruction. This is a little verbose but very easy to parse.
      *       The most common mistake is to forget a comma somewhere.
      *
-     * @param line raw line of assembly to parse into an instruction
+     * @param rawLine raw line of assembly to parse into an instruction
      * @return an instruction
      * @throws IllegalArgumentException if the line cannot be parsed.
      */
-    public Instruction parse(String line) {
+    public Instruction parse(String rawLine) {
+
+        String line;
+        String comment; // todo use this somewhere
+        if (rawLine.contains("--")) {
+            String[] lineAndComment = rawLine.split("--");
+            line = lineAndComment[0];
+            comment = lineAndComment[1];
+        } else {
+            line = rawLine;
+            comment = null;
+        }
+
         String[] split = line.split(",");
         if (split.length > 3) {
             return Instruction.error("unknown instruction");
@@ -166,7 +178,7 @@ public class Assembler {
                             instruction.getImmediate();
             case J:
                 return instruction.getOpcode().getValue()<<12 |
-                        instruction.getImmediate();
+                        instruction.getImmediate()>>1;
         }
         throw new IllegalArgumentException("unhandled instruction:" + instruction);
     }
@@ -227,7 +239,7 @@ public class Assembler {
                         .setImmediate(encoded & IMMEDIATE_MASK);
             case J:
                 return new JumpImmediate().setOpcode(opCode)
-                        .setImmediate((encoded & 0xfff)>>1);
+                        .setImmediate((encoded & 0xfff)<<1);
 
         }
         throw new IllegalArgumentException("unhandled encoded instruction:" + encoded);
@@ -289,7 +301,7 @@ public class Assembler {
      * @throws NumberFormatException if an unknown format
      */
     private int toImmediate(String s) {
-        // todo - assert the register value can be encoded
+        // todo - assert the value can be encoded
 
         // With respect to the encoding assertion, keep in mind that you may only
         // have 8 bits for an immediate value in your instruction (more for a

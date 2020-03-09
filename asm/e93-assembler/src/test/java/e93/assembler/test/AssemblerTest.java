@@ -55,37 +55,37 @@ public class AssemblerTest {
     }
 
     @Test
-    public void parseStoreWord() throws Exception {
+    public void parseStoreWord() {
         Instruction instruction = assembler.parse("SW, $r1, $r2");
         assertEquals(new StoreWord().setOpcode(OpCode.SW).setR1(1).setR2(2), instruction);
     }
 
     @Test
-    public void parseOrImmediate() throws Exception {
+    public void parseOrImmediate() {
         Instruction instruction = assembler.parse("ORI, $r1, 0x123");
         assertEquals(new OrImmediate().setOpcode(OpCode.ORI).setR1(1).setImmediate(0x123), instruction);
     }
 
     @Test
-    public void invalidFormat() throws Exception {
+    public void invalidFormat() {
         Instruction instruction = assembler.parse("AND $r1 $r2");
         assertFalse(instruction.isValid());
     }
 
     @Test
-    public void invalidRegisterFormat() throws Exception {
+    public void invalidRegisterFormat() {
         Instruction instruction = assembler.parse("AND, r1, r2");
         assertFalse(instruction.isValid());
     }
 
     @Test
-    public void invalidRegister() throws Exception {
+    public void invalidRegister() {
         Instruction instruction = assembler.parse("AND, $r16, r2");
         assertFalse(instruction.isValid());
     }
 
     @Test
-    public void encodeTwoRegisterType() throws Exception {
+    public void encodeTwoRegisterType() {
         Instruction instruction = assembler.parse("AND, $r1, $r2");
         int encoded = Assembler.encode(instruction);
 
@@ -98,8 +98,15 @@ public class AssemblerTest {
     }
 
     @Test
-    public void decodeTwoRegisterType() throws Exception {
-        Instruction expected = assembler.parse("AND, $r1, $r2");
+    public void decodeTwoRegisterType() {
+        Instruction expected = assembler.parse("AND, $r1, $r2 -- this is a comment");
+        int encoded = Assembler.encode(expected);
+        assertEquals(expected, Assembler.decode(encoded));
+    }
+
+    @Test
+    public void encodeJumpImmediate() {
+        Instruction expected = assembler.parse("J, 0x6");
         int encoded = Assembler.encode(expected);
         assertEquals(expected, Assembler.decode(encoded));
     }
