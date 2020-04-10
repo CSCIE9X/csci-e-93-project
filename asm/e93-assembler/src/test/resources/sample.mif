@@ -5,12 +5,24 @@ DATA_RADIX = HEX;             -- The radix for data values
 CONTENT                       -- start of (address : data pairs)
 BEGIN
 
-0000 : 1501; -- AND, $r5, $r0   -- init r5 to 0
-0001 : 1601; -- AND, $r6, $r0   -- init r6 to 0
-0002 : 3664; -- ORI, $r6, 0x64  -- set r6 to 0x64
-0003 : 2501; -- ADDI, $r5, 0x1  -- increment r5
-0004 : 4560; -- SW, $r5, $r6    -- store r5 into memory[0x64]
-0005 : 5560; -- LW, $r5, $r6    -- load value at r6 into r5
-0006 : 6003; -- J, 0x03         -- jump to increment line
+0000 : 1501; -- AND $r5, $r0   -- init r5 to 0
+0001 : 1601; -- AND $r6, $r0   -- init r6 to 0
+0002 : 3664; -- ORI $r6, 0x64  -- set r6 to 0x64
+0003 : 2501; -- ADDI $r5, 0x1  -- increment r5
+0004 : 4560; -- SW $r5, $r6    -- store r5 into memory[0x64]
+0005 : 5560; -- LW $r5, $r6    -- load value at r6 into r5
+0006 : 6003; -- J 0x03         -- jump to increment line
+0007 : 0048; -- H
+0008 : 0065; -- e
+0009 : 006c; -- l
+000a : 006c; -- l
+000b : 006f; -- o
+000c : 0020; -- <space>
+000d : 0057; -- W
+000e : 006f; -- o
+000f : 0072; -- r
+0010 : 006c; -- l
+0011 : 0064; -- d
+0012 : 0000; -- <null>
 
 END

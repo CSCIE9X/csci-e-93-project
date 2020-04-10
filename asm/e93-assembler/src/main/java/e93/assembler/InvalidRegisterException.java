@@ -2,7 +2,7 @@ package e93.assembler;
 
 import javax.annotation.Generated;
 
-public class InvalidRegisterException extends Exception {
+public class InvalidRegisterException extends RuntimeException {
     private final String value;
 
     public InvalidRegisterException(String value) {

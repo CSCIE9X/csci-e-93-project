@@ -7,4 +7,8 @@ public interface AssemblyVisitor {
     void visit(LoadWord loadWord);
     void visit(OrImmediate orImmediate);
     void visit(StoreWord storeWord);
+    void visit(Asciiz asciiz);
+    default void visit(ErrorLine errorLine) {
+        throw new IllegalStateException("should detect errors before writing mif");
+    }
 }

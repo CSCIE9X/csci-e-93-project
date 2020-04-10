@@ -2,16 +2,18 @@ package e93.emulator;
 
 import e93.assembler.ast.AddImmediate;
 import e93.assembler.ast.And;
+import e93.assembler.ast.Asciiz;
 import e93.assembler.ast.AssemblyVisitor;
 import e93.assembler.ast.JumpImmediate;
 import e93.assembler.ast.LoadWord;
 import e93.assembler.ast.OrImmediate;
 import e93.assembler.ast.StoreWord;
-
-import javax.annotation.Generated;
+import lombok.Getter;
+import lombok.Setter;
 
 public class ExecutionVisitor implements AssemblyVisitor {
 
+    @Getter @Setter
     private int pc = 0;
     private MemorySubsystem memorySubsystem;
     private int[] registers;
@@ -73,19 +75,13 @@ public class ExecutionVisitor implements AssemblyVisitor {
         incrementPc();
     }
 
+    @Override
+    public void visit(Asciiz asciiz) {
+        throw new IllegalStateException("if you're executing a directive, something is wrong");
+    }
+
     private void incrementPc() {
         pc += 2;
-    }
-
-    @Generated("by IDE")
-    public int getPc() {
-        return pc;
-    }
-
-    @Generated("by IDE")
-    public ExecutionVisitor setPc(final int pc) {
-        this.pc = pc;
-        return this;
     }
 
     public int[] getRegisters() {

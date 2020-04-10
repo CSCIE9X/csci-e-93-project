@@ -1,7 +1,7 @@
 package e93.assembler.test;
 
-import e93.assembler.Assembler;
 import e93.assembler.Instruction;
+import e93.assembler.InstructionParser;
 import e93.emulator.ExecutionVisitor;
 import e93.emulator.MemorySubsystem;
 import org.junit.Test;
@@ -12,17 +12,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class ExecutionVisitorTest {
-    private final Assembler assembler = new Assembler();
     private final MemoryFixture memoryFixture = new MemoryFixture();
 
     @Test
-    public void and() throws Exception {
+    public void and() {
         // load memory
         // load registers
         // execute
         // assert register results
         // assert memory
-        Instruction and = parse("AND, $r1, $r0");
+        Instruction and = parse("AND $r1, $r0");
         writeInstructions(memoryFixture, and);
 
         // set the value of r1 to 5
@@ -44,13 +43,13 @@ public class ExecutionVisitorTest {
     }
 
     @Test
-    public void ori() throws Exception {
+    public void ori() {
         // load memory
         // load registers
         // execute
         // assert register results
         // assert memory
-        Instruction ori = parse("ORI, $r1, 0x1");
+        Instruction ori = parse("ORI $r1, 0x1");
         writeInstructions(memoryFixture, ori);
 
         // set the value of r1 to 2, this way we can see the effect of ORI
@@ -72,13 +71,13 @@ public class ExecutionVisitorTest {
     }
 
     @Test
-    public void addi() throws Exception {
+    public void addi() {
         // load memory
         // load registers
         // execute
         // assert register results
         // assert memory
-        Instruction addi = parse("ADDI, $r1, 0x1");
+        Instruction addi = parse("ADDI $r1, 0x1");
         writeInstructions(memoryFixture, addi);
 
         // set the value of r1 to 2
@@ -100,13 +99,13 @@ public class ExecutionVisitorTest {
     }
 
     @Test
-    public void sw() throws Exception {
+    public void sw() {
         // load memory
         // load registers
         // execute
         // assert register results
         // assert memory
-        Instruction sw = parse("SW, $r1, $r2");
+        Instruction sw = parse("SW $r1, $r2");
         writeInstructions(memoryFixture, sw);
 
         int[] registers = new int[16];
@@ -132,13 +131,13 @@ public class ExecutionVisitorTest {
     }
 
     @Test
-    public void lw() throws Exception {
+    public void lw() {
         // load memory
         // load registers
         // execute
         // assert register results
         // assert memory
-        Instruction sw = parse("LW, $r1, $r2");
+        Instruction sw = parse("LW $r1, $r2");
         writeInstructions(memoryFixture, sw);
 
         int[] registers = new int[16];
@@ -166,13 +165,13 @@ public class ExecutionVisitorTest {
     }
 
     @Test
-    public void jumpImmediate() throws Exception {
+    public void jumpImmediate() {
         // load memory
         // load registers
         // execute
         // assert register results
         // assert memory
-        Instruction jump = parse("J, 0x3");
+        Instruction jump = parse("J 0x3");
         writeInstructions(memoryFixture, jump);
 
         int[] registers = new int[16];
@@ -195,7 +194,7 @@ public class ExecutionVisitorTest {
     }
 
     private Instruction parse(final String line) {
-        Instruction and = assembler.parse(line);
+        Instruction and = InstructionParser.parse(line);
         assertTrue("failed to parse instruction", and.isValid());
         return and;
     }

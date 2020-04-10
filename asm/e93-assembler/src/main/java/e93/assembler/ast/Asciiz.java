@@ -1,22 +1,21 @@
 package e93.assembler.ast;
 
 import e93.assembler.Instruction;
-import e93.assembler.OpCode;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class JumpImmediate extends Instruction {
+public class Asciiz extends Instruction {
 
-    private int immediate;
+    private String value;
 
-    public JumpImmediate() {
-        setOpcode(OpCode.J);
+    public Asciiz(String value) {
+        this.value = value;
     }
 
     @Override
-    public void accept(final AssemblyVisitor assemblyVisitor) {
+    public void accept(AssemblyVisitor assemblyVisitor) {
         assemblyVisitor.visit(this);
     }
 }

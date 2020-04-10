@@ -1,9 +1,7 @@
 package e93.assembler;
 
 import e93.assembler.ast.AssemblyVisitor;
-
-import javax.annotation.Generated;
-import java.util.Objects;
+import lombok.Data;
 
 /**
  * Simple data structure for an Instruction. All of the instructions in the
@@ -17,39 +15,14 @@ import java.util.Objects;
  *
  * @author markford
  */
+@Data
 public abstract class Instruction {
-    /**
-     * The address (or value of the PC) of the instruction is set by the assembler.
-     * This should be done at a point where you're sure that the instruction
-     * won't change. For example, if it's a pseudo instruction, it may
-     * generate 2 or 3 other instructions that take its place and would therefore
-     * shift the addresses of all of the other instructions.
-     *
-     * The address may be used when encoding an instruction.
-     */
     private int address;
 
     /**
      * The OpCode for the instructions. All instructions have OpCodes.
      */
     private OpCode opcode;
-
-    /**
-     * Some instructions have a value for the first register. This may be rd, rs,
-     * or rt depending on your instruction set.
-     */
-    private int r1;
-
-    /**
-     * Some instructions have a value for the second register. This may be rd, rs,
-     * or rt depending on your instruction set.
-     */
-    private int r2;
-
-    /**
-     * Some instructions have an immediate value.
-     */
-    private int immediate;
 
     /**
      * Some instructions have a function code. This is a good technique to pack
@@ -80,170 +53,9 @@ public abstract class Instruction {
 
     private String sourceLine;
 
-    private String errorMessage;
-
-    public static Instruction error(String errorMessage) {
-        return new Instruction() {
-            @Override
-            public void accept(final AssemblyVisitor assemblyVisitor) {
-
-            }
-        }.setErrorMessage(errorMessage);
-    }
-
     public boolean isValid() {
         return opcode != null;
     }
 
-    @Generated("by IDE")
-    public int getAddress() {
-        return address;
-    }
-
-    @Generated("by IDE")
-    public Instruction setAddress(final int address) {
-        this.address = address;
-        return this;
-    }
-
-    @Generated("by IDE")
-    public OpCode getOpcode() {
-        return opcode;
-    }
-
-    @Generated("by IDE")
-    public Instruction setOpcode(final OpCode opcode) {
-        this.opcode = opcode;
-        return this;
-    }
-
-    @Generated("by IDE")
-    public int getR1() {
-        return r1;
-    }
-
-    @Generated("by IDE")
-    public Instruction setR1(final int r1) {
-        this.r1 = r1;
-        return this;
-    }
-
-    @Generated("by IDE")
-    public int getR2() {
-        return r2;
-    }
-
-    @Generated("by IDE")
-    public Instruction setR2(final int r2) {
-        this.r2 = r2;
-        return this;
-    }
-
-    @Generated("by IDE")
-    public int getImmediate() {
-        return immediate;
-    }
-
-    @Generated("by IDE")
-    public Instruction setImmediate(final int immediate) {
-        this.immediate = immediate;
-        return this;
-    }
-
-    @Generated("by IDE")
-    public int getFunc() {
-        return func;
-    }
-
-    @Generated("by IDE")
-    public Instruction setFunc(final int func) {
-        this.func = func;
-        return this;
-    }
-
-    @Generated("by IDE")
-    public String getLabel() {
-        return label;
-    }
-
-    @Generated("by IDE")
-    public Instruction setLabel(final String label) {
-        this.label = label;
-        return this;
-    }
-
-    @Generated("by IDE")
-    public int getLineNumber() {
-        return lineNumber;
-    }
-
-    @Generated("by IDE")
-    public Instruction setLineNumber(final int lineNumber) {
-        this.lineNumber = lineNumber;
-        return this;
-    }
-
-    @Generated("by IDE")
-    public String getSourceLine() {
-        return sourceLine;
-    }
-
-    @Generated("by IDE")
-    public Instruction setSourceLine(final String sourceLine) {
-        this.sourceLine = sourceLine;
-        return this;
-    }
-
-    @Generated("by IDE")
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-
-    @Generated("by IDE")
-    public Instruction setErrorMessage(final String errorMessage) {
-        this.errorMessage = errorMessage;
-        return this;
-    }
-
     public abstract void accept(AssemblyVisitor assemblyVisitor);
-
-    @Override
-    @Generated("by IDE")
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        final Instruction that = (Instruction) o;
-        return address == that.address &&
-                r1 == that.r1 &&
-                r2 == that.r2 &&
-                immediate == that.immediate &&
-                func == that.func &&
-                lineNumber == that.lineNumber &&
-                opcode == that.opcode &&
-                Objects.equals(label, that.label) &&
-                Objects.equals(sourceLine, that.sourceLine) &&
-                Objects.equals(errorMessage, that.errorMessage);
-    }
-
-    @Override
-    @Generated("by IDE")
-    public int hashCode() {
-        return Objects.hash(address, opcode, r1, r2, immediate, func, label, lineNumber, sourceLine, errorMessage);
-    }
-
-    @Override
-    public String toString() {
-        return "Instruction{" +
-                "address=" + address +
-                ", opcode=" + opcode +
-                ", r1=" + r1 +
-                ", r2=" + r2 +
-                ", immediate=" + immediate +
-                ", func=" + func +
-                ", label='" + label + '\'' +
-                ", lineNumber=" + lineNumber +
-                ", sourceLine='" + sourceLine + '\'' +
-                ", errorMessage='" + errorMessage + '\'' +
-                '}';
-    }
 }
