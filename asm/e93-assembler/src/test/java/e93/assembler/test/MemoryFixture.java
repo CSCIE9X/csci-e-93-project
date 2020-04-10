@@ -20,14 +20,14 @@ public class MemoryFixture implements MemorySubsystem {
     public void writeInt(final int address, final int value) {
         byte hiBits = (byte) ((value >> 8) & 0xff);
         byte lowBits = (byte) (value & 0xff);
-        bytes[address] = hiBits;
-        bytes[address+1] = lowBits;
+        bytes[address] = lowBits;
+        bytes[address+1] = hiBits;
     }
 
     @Override
     public int readInt(final int address) {
-        int hiBits = bytes[address] & 0xff;
-        int lowBits = bytes[address +1] & 0xff;
+        int hiBits = bytes[address + 1] & 0xff;
+        int lowBits = bytes[address] & 0xff;
         return (hiBits << 8) | lowBits;
     }
 
