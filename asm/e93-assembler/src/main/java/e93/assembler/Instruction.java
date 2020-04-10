@@ -17,7 +17,6 @@ import lombok.Data;
  */
 @Data
 public abstract class Instruction {
-    private int address;
 
     /**
      * The OpCode for the instructions. All instructions have OpCodes.

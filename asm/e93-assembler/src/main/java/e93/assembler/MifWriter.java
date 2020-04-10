@@ -40,9 +40,8 @@ public class MifWriter {
                 .map(instruction -> {
                     if (instruction.getOpcode() != null) {
                         // it's an instruction, all of the instructions are handled the same way
-                        instruction.setAddress(mifIndex.getAndIncrement());
                         return Collections.singletonList(String.format(MIF_LINE,
-                                instruction.getAddress(),
+                                mifIndex.getAndIncrement(),
                                 Assembler.encode(instruction),
                                 Optional.ofNullable(instruction.getSourceLine()).map(line -> String.format(" -- %s", line)).orElse("")));
                     } else {
@@ -53,7 +52,6 @@ public class MifWriter {
                                 // this version of asciiz only stores one byte per word
                                 // you could reduce the size of the program in memory
                                 // by packing two bytes per word
-                                asciiz.setAddress(mifIndex.get());
                                 return Stream.concat(asciiz.getValue().chars().boxed(), Stream.of(0))
                                         .map(ascii -> String.format(MIF_LINE,
                                                 mifIndex.getAndIncrement(),
