@@ -13,7 +13,7 @@ public class ErrorLine extends Instruction {
     private String errorMessage;
 
     @Override
-    public void accept(AssemblyVisitor assemblyVisitor) {
-        assemblyVisitor.visit(this);
+    public <R> R accept(AssemblyVisitor<R> assemblyVisitor) {
+        return assemblyVisitor.visit(this);
     }
 }

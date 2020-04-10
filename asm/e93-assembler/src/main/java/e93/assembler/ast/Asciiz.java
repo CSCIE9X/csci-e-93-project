@@ -15,7 +15,7 @@ public class Asciiz extends Instruction {
     }
 
     @Override
-    public void accept(AssemblyVisitor assemblyVisitor) {
-        assemblyVisitor.visit(this);
+    public <R> R accept(AssemblyVisitor<R> assemblyVisitor) {
+        return assemblyVisitor.visit(this);
     }
 }

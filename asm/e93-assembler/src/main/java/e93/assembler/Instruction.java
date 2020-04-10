@@ -57,5 +57,5 @@ public abstract class Instruction {
         return opcode != null;
     }
 
-    public abstract void accept(AssemblyVisitor assemblyVisitor);
+    public abstract <R> R accept(AssemblyVisitor<R> assemblyVisitor);
 }

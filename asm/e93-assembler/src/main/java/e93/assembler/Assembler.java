@@ -2,6 +2,7 @@ package e93.assembler;
 
 import e93.assembler.ast.AddImmediate;
 import e93.assembler.ast.And;
+import e93.assembler.ast.AssemblyVisitor;
 import e93.assembler.ast.ErrorLine;
 import e93.assembler.ast.JumpImmediate;
 import e93.assembler.ast.LoadWord;
@@ -44,55 +45,57 @@ public class Assembler {
 
         assert instruction.getOpcode() != null;
 
-        switch(instruction.getOpcode()) {
-            case ALU:
-                if (instruction.getFunc() == ALUFunctionCodes.AND) {
-                    And and = (And) instruction;
-                    return
-                            // opcode is bits 15..12
-                            and.getOpcode().getValue() << 12 |
-                                    // r1 is bits 11..8
-                                    and.getR1() << 8 |
-                                    // r2 is bits 7..4
-                                    and.getR2() << 4 |
-                                    // func is bits 3..0
-                                    instruction.getFunc()
-                            ;
-                } else {
-                    throw new IllegalStateException("Unexpected value: " + instruction.getFunc());
-                }
-            case SW: {
-                StoreWord lw = (StoreWord) instruction;
+        Integer encoded = instruction.accept(new AssemblyVisitor<Integer>() {
+            @Override
+            public Integer visit(And and) {
+                return // opcode is bits 15..12
+                        and.getOpcode().getValue() << 12 |
+                                // r1 is bits 11..8
+                                and.getR1() << 8 |
+                                // r2 is bits 7..4
+                                and.getR2() << 4 |
+                                // func is bits 3..0
+                                instruction.getFunc();
+            }
+
+            @Override
+            public Integer visit(AddImmediate addImmediate) {
+                return addImmediate.getOpcode().getValue() << 12 |
+                        addImmediate.getR1() << 8 |
+                        addImmediate.getImmediate();
+            }
+
+            @Override
+            public Integer visit(JumpImmediate jumpImmediate) {
+                return jumpImmediate.getOpcode().getValue() << 12 |
+                        jumpImmediate.getImmediate() >> 1;
+            }
+
+            @Override
+            public Integer visit(LoadWord lw) {
                 return lw.getOpcode().getValue() << 12 |
                         lw.getR1() << 8 |
                         lw.getR2() << 4;
             }
-            case LW: {
-                LoadWord sw = (LoadWord) instruction;
-                return sw.getOpcode().getValue()<<12 |
+
+            @Override
+            public Integer visit(OrImmediate ori) {
+                return ori.getOpcode().getValue() << 12 |
+                        ori.getR1() << 8 |
+                        ori.getImmediate();
+            }
+
+            @Override
+            public Integer visit(StoreWord sw) {
+                return sw.getOpcode().getValue() << 12 |
                         sw.getR1() << 8 |
                         sw.getR2() << 4;
             }
-            case ORI: {
-                OrImmediate ori = (OrImmediate) instruction;
-                return ori.getOpcode().getValue()<<12 |
-                        ori.getR1() << 8 |
-                        ori.getImmediate();
-
-            }
-            case ADDI: {
-                AddImmediate addImmediate = (AddImmediate) instruction;
-                return addImmediate.getOpcode().getValue()<<12 |
-                        addImmediate.getR1() << 8 |
-                        addImmediate.getImmediate();
-            }
-            case J: {
-                JumpImmediate jumpImmediate = (JumpImmediate) instruction;
-                return jumpImmediate.getOpcode().getValue()<<12 |
-                        jumpImmediate.getImmediate()>>1;
-            }
+        });
+        if (encoded == null) {
+            throw new IllegalArgumentException("unhandled instruction:" + instruction);
         }
-        throw new IllegalArgumentException("unhandled instruction:" + instruction);
+        return encoded;
     }
 
     /**

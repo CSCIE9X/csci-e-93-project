@@ -11,7 +11,7 @@ import e93.assembler.ast.StoreWord;
 import lombok.Getter;
 import lombok.Setter;
 
-public class ExecutionVisitor implements AssemblyVisitor {
+public class ExecutionVisitor implements AssemblyVisitor<Integer> {
 
     @Getter @Setter
     private int pc = 0;
@@ -24,59 +24,65 @@ public class ExecutionVisitor implements AssemblyVisitor {
     }
 
     @Override
-    public void visit(final And and) {
+    public Integer visit(final And and) {
         int op1 = registers[and.getR1()];
         int op2 = registers[and.getR2()];
         int result = op1 & op2;
         registers[and.getR1()] = result;
         incrementPc();
+        return getPc();
     }
 
     @Override
-    public void visit(final AddImmediate andi) {
+    public Integer visit(final AddImmediate andi) {
         int op1 = registers[andi.getR1()];
         int immediate = andi.getImmediate();
         int result = op1 + immediate;
         registers[andi.getR1()] = result;
         incrementPc();
+        return getPc();
     }
 
     @Override
-    public void visit(final JumpImmediate jumpImmediate) {
+    public Integer visit(final JumpImmediate jumpImmediate) {
         incrementPc();
         int high7bits = pc & (0xff<<9);
         // immediate has already been shifted
         int low9bits = jumpImmediate.getImmediate();
         pc = high7bits | low9bits;
+        return getPc();
     }
 
     @Override
-    public void visit(final LoadWord loadWord) {
+    public Integer visit(final LoadWord loadWord) {
         int address = registers[loadWord.getR2()];
         int value = memorySubsystem.readInt(address);
         registers[loadWord.getR1()] = value;
         incrementPc();
+        return getPc();
     }
 
     @Override
-    public void visit(final OrImmediate ori) {
+    public Integer visit(final OrImmediate ori) {
         int op1 = registers[ori.getR1()];
         int immediate = ori.getImmediate();
         int result = op1 | immediate;
         registers[ori.getR1()] = result;
         incrementPc();
+        return getPc();
     }
 
     @Override
-    public void visit(final StoreWord storeWord) {
+    public Integer visit(final StoreWord storeWord) {
         int address = registers[storeWord.getR2()];
         int value = registers[storeWord.getR1()];
         memorySubsystem.writeInt(address, value);
         incrementPc();
+        return getPc();
     }
 
     @Override
-    public void visit(Asciiz asciiz) {
+    public Integer visit(Asciiz asciiz) {
         throw new IllegalStateException("if you're executing a directive, something is wrong");
     }
 

@@ -1,6 +1,7 @@
 package e93.assembler;
 
 import e93.assembler.ast.Asciiz;
+import e93.assembler.ast.AssemblyVisitor;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,31 +33,39 @@ public class MifWriter {
         InputStream template = IOUtils.asStream("/mif-16bit-template.txt");
         String templateStr = readAllIntoString(template);
 
-        AtomicInteger address = new AtomicInteger(0);
+        AtomicInteger mifIndex = new AtomicInteger(0);
 
         String allInstructions = instructions
                 .stream()
                 .map(instruction -> {
                     if (instruction.getOpcode() != null) {
-                        // it's an instruction
-                        instruction.setAddress(address.getAndIncrement());
+                        // it's an instruction, all of the instructions are handled the same way
+                        instruction.setAddress(mifIndex.getAndIncrement());
                         return Collections.singletonList(String.format(MIF_LINE,
                                 instruction.getAddress(),
                                 Assembler.encode(instruction),
                                 Optional.ofNullable(instruction.getSourceLine()).map(line -> String.format(" -- %s", line)).orElse("")));
                     } else {
-                        // it's a directive
-                        if (instruction instanceof Asciiz) {
-                            Asciiz asciiz = (Asciiz) instruction;
-                            asciiz.setAddress(address.get());
-                            return Stream.concat(asciiz.getValue().chars().boxed(), Stream.of(0))
-                                    .map(ascii -> String.format(MIF_LINE,
-                                            address.getAndIncrement(),
-                                            ascii,
-                                            asCharacter(ascii)))
-                                    .collect(Collectors.toList());
+                        // it's a directive, need to see what kind in order to know how to emit it
+                        List<String> output = instruction.accept(new AssemblyVisitor<List<String>>() {
+                            @Override
+                            public List<String> visit(Asciiz asciiz) {
+                                // this version of asciiz only stores one byte per word
+                                // you could reduce the size of the program in memory
+                                // by packing two bytes per word
+                                asciiz.setAddress(mifIndex.get());
+                                return Stream.concat(asciiz.getValue().chars().boxed(), Stream.of(0))
+                                        .map(ascii -> String.format(MIF_LINE,
+                                                mifIndex.getAndIncrement(),
+                                                ascii,
+                                                asCharacter(ascii)))
+                                        .collect(Collectors.toList());
+                            }
+                        });
+                        if (output == null) {
+                            throw new IllegalStateException("mif support missing for:" + instruction.getSourceLine());
                         }
-                        throw new IllegalStateException("mif support missing for:" + instruction.getSourceLine());
+                        return output;
                     }
                 })
                 .flatMap(Collection::stream)

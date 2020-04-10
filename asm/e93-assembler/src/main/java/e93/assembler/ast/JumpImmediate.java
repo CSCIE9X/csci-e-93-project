@@ -16,7 +16,7 @@ public class JumpImmediate extends Instruction {
     }
 
     @Override
-    public void accept(final AssemblyVisitor assemblyVisitor) {
-        assemblyVisitor.visit(this);
+    public <R> R accept(final AssemblyVisitor<R> assemblyVisitor) {
+        return assemblyVisitor.visit(this);
     }
 }
